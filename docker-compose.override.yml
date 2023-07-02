@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  TrainTracking:
+    image: ${DOCKER_REGISTRY-}TrainTracking
+    build: 
+      context: ./
+      dockerfile: ./TrainTracking/Dockerfile
+    
+  Postgres:
+    image: postgis/postgis
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - ../.volumes/AwailableStationServiceVolume:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=testpass
